@@ -7,6 +7,8 @@ public class SceneBootstrap : MonoBehaviour
     public ActionPerformer actionPerformer;
     public AnimalShapePicker animalShapePicker;
     public MatchTableUIManager matchTableUI;
+    public WinManager winManager;
+    public LoseManager loseManager;
     private void Awake()
     {
         Init();
@@ -21,5 +23,11 @@ public class SceneBootstrap : MonoBehaviour
 
         matchTableUI.Init();
         animalShapePicker.onPicked += matchTableUI.OnPicked;
+        loseManager.Init(animalShapePicker);
+
+        matchTableUI.maxPairsCount = spawner.maxPairsCount;
+        matchTableUI.onGameLost += loseManager.OpenWindow;
+        matchTableUI.onGameWon += winManager.OpenWindow;
+
     }
 }
